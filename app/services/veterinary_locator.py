@@ -1,6 +1,6 @@
 import os
 from typing import List, Optional, Tuple
-from models.db_models import VeterinarioModel
+from app.models.db_models import VeterinarioModel
 from geopy.geocoders import Nominatim
 import time
 import math
