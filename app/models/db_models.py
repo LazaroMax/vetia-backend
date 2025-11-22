@@ -1,4 +1,3 @@
-# backend/app/models/db_models.py
 from typing import List, Optional
 from pydantic import BaseModel
 

@@ -2,8 +2,9 @@
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from services.veterinary_locator import buscar_veterinarios_cercanos_from_db
 import os
+from app.services.veterinary_locator import buscar_veterinarios_cercanos_from_db
+
 
 app = FastAPI(
     title="VetIA MCP - API",
@@ -29,14 +30,14 @@ app.add_middleware(
 )
 
 # -----------------------------
-# MODELO DE ENTRADA DEL CLIENTE
+# MODELO DE ENTRADA DEL CLIENTE (lat/lon)
 # -----------------------------
 class UbicacionUsuario(BaseModel):
     latitud: float
     longitud: float
 
 # -----------------------------
-# NUEVO ENDPOINT PRINCIPAL
+# NUEVO ENDPOINT PRINCIPAL (GET)
 # -----------------------------
 @app.get("/veterinarias/cercanas", tags=["Veterinarias"])
 async def obtener_veterinarias_cercanas(
@@ -55,7 +56,7 @@ async def obtener_veterinarias_cercanas(
         raise HTTPException(status_code=500, detail=str(e))
 
 # -------------------------------------------------
-# ENDPOINT OPCIONAL (por compatibilidad con tu app)
+# ENDPOINT OPCIONAL (por compatibilidad con tu app) - recibe direccion (POST)
 # -------------------------------------------------
 class DuenoModel(BaseModel):
     direccion: str | None = None
